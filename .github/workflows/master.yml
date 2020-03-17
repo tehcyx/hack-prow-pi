@@ -33,8 +33,8 @@ jobs:
 
     - name: tag images
       run: |
-        DATE=$(shell date +"%Y%m%d")
-        GIT_COMMIT=$(shell git rev-parse --short HEAD)
+        DATE=$(date +"%Y%m%d")
+        GIT_COMMIT=$(git rev-parse --short HEAD)
         TAG="v${DATE}-${GIT_COMMIT}"
         docker tag "pi-tide:${TAG}" docker.pkg.github.com/tehcyx/hack-prow-pi/pi-tide:latest
         docker tag "pi-tide:${TAG}" "docker.pkg.github.com/tehcyx/hack-prow-pi/pi-tide:${TAG}"
@@ -56,8 +56,8 @@ jobs:
 
     - name: push image
       run: |
-        DATE=$(shell date +"%Y%m%d")
-        GIT_COMMIT=$(shell git rev-parse --short HEAD)
+        DATE=$(date +"%Y%m%d")
+        GIT_COMMIT=$(git rev-parse --short HEAD)
         TAG="v${DATE}-${GIT_COMMIT}"
         docker push docker.pkg.github.com/tehcyx/hack-prow-pi/pi-tide:latest
         docker push "docker.pkg.github.com/tehcyx/hack-prow-pi/pi-tide:${TAG}"
