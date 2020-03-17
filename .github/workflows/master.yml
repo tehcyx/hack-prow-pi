@@ -1,0 +1,78 @@
+# This is a basic workflow to help you get started with Actions
+
+name: Publish ARM images of prow@master
+
+# Controls when the action will run. Triggers the workflow on push or pull request 
+# events but only for the master branch
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  build:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+    # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+    - uses: actions/checkout@v2
+    - name: Login to GitHub Docker Registry
+      run: docker login docker.pkg.github.com --username $DOCKER_USERNAME --password $DOCKER_PASSWORD
+      env:
+        DOCKER_USERNAME: ${{ secrets.GITHUB_DOCKER_USERNAME }}
+        DOCKER_PASSWORD: ${{ secrets.GITHUB_DOCKER_PASSWORD }}
+    
+    - name: run make, building all images
+      run:  |
+        make
+
+    - name: tag images
+      run: |
+        DATE=$(shell date +"%Y%m%d")
+        GIT_COMMIT=$(shell git rev-parse --short HEAD)
+        TAG="v${DATE}-${GIT_COMMIT}"
+        docker tag "pi-tide:${TAG}" docker.pkg.github.com/tehcyx/hack-prow-pi/pi-tide:latest
+        docker tag "pi-tide:${TAG}" "docker.pkg.github.com/tehcyx/hack-prow-pi/pi-tide:${TAG}"
+        
+        docker tag "pi-status-reconciler:${TAG}" docker.pkg.github.com/tehcyx/hack-prow-pi/pi-status-reconciler:latest
+        docker tag "pi-status-reconciler:${TAG}" "docker.pkg.github.com/tehcyx/hack-prow-pi/pi-status-reconciler:${TAG}"
+        
+        docker tag "pi-hook:${TAG}" docker.pkg.github.com/tehcyx/hack-prow-pi/pi-hook:latest
+        docker tag "pi-hook:${TAG}" "docker.pkg.github.com/tehcyx/hack-prow-pi/pi-hook:${TAG}"
+        
+        docker tag "pi-plank:${TAG}" docker.pkg.github.com/tehcyx/hack-prow-pi/pi-plank:latest
+        docker tag "pi-plank:${TAG}" "docker.pkg.github.com/tehcyx/hack-prow-pi/pi-plank:${TAG}"
+        
+        docker tag "pi-sinker:${TAG}" docker.pkg.github.com/tehcyx/hack-prow-pi/pi-sinker:latest
+        docker tag "pi-sinker:${TAG}" "docker.pkg.github.com/tehcyx/hack-prow-pi/pi-sinker:${TAG}"
+        
+        docker tag "pi-deck:${TAG}" docker.pkg.github.com/tehcyx/hack-prow-pi/pi-deck:latest
+        docker tag "pi-deck:${TAG}" "docker.pkg.github.com/tehcyx/hack-prow-pi/pi-deck:${TAG}"
+
+    - name: push image
+      run: |
+        DATE=$(shell date +"%Y%m%d")
+        GIT_COMMIT=$(shell git rev-parse --short HEAD)
+        TAG="v${DATE}-${GIT_COMMIT}"
+        docker push docker.pkg.github.com/tehcyx/hack-prow-pi/pi-tide:latest
+        docker push "docker.pkg.github.com/tehcyx/hack-prow-pi/pi-tide:${TAG}"
+        
+        docker push docker.pkg.github.com/tehcyx/hack-prow-pi/pi-status-reconciler:latest
+        docker push "docker.pkg.github.com/tehcyx/hack-prow-pi/pi-status-reconciler:${TAG}"
+        
+        docker push docker.pkg.github.com/tehcyx/hack-prow-pi/pi-hook:latest
+        docker push "docker.pkg.github.com/tehcyx/hack-prow-pi/pi-hook:${TAG}"
+        
+        docker push docker.pkg.github.com/tehcyx/hack-prow-pi/pi-plank:latest
+        docker push "docker.pkg.github.com/tehcyx/hack-prow-pi/pi-plank:${TAG}"
+        
+        docker push docker.pkg.github.com/tehcyx/hack-prow-pi/pi-sinker:latest
+        docker push "docker.pkg.github.com/tehcyx/hack-prow-pi/pi-sinker:${TAG}"
+        
+        docker push docker.pkg.github.com/tehcyx/hack-prow-pi/pi-deck:latest
+        docker push "docker.pkg.github.com/tehcyx/hack-prow-pi/pi-deck:${TAG}"
