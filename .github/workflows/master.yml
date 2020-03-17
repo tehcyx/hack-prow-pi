@@ -40,9 +40,11 @@ jobs:
         make push
 
     - name: create starter.yaml artifact
-      uses: actions/upload-artifact@v1
       run: |
         make starter
+    
+    - name: upload artifact
+      uses: actions/upload-artifact@v1
       with:
         name: starter.yaml
         path: artifact/starter.yaml
