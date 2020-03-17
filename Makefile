@@ -23,3 +23,12 @@ sinker:
 
 deck:
 	docker build --build-arg CMP_NAME=deck -t pi-deck:${TAG} .
+
+horologium:
+	docker build --build-arg CMP_NAME=horologium -t pi-horologium:${TAG} .
+
+starter:
+	./create-starter.sh ${TAG}
+
+clean:
+	rm -rf artifact/

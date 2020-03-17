@@ -76,3 +76,12 @@ jobs:
         
         docker push docker.pkg.github.com/tehcyx/hack-prow-pi/pi-deck:latest
         docker push "docker.pkg.github.com/tehcyx/hack-prow-pi/pi-deck:${TAG}"
+
+
+    - name: create starter.yaml artifact
+      uses: actions/upload-artifact@v1
+      run: |
+        make starter
+      with:
+        name: starter.yaml
+        path: artifact/starter.yaml
