@@ -33,50 +33,11 @@ jobs:
 
     - name: tag images
       run: |
-        DATE=$(date +"%Y%m%d")
-        GIT_COMMIT=$(git rev-parse --short HEAD)
-        TAG="v${DATE}-${GIT_COMMIT}"
-        docker tag "pi-tide:${TAG}" docker.pkg.github.com/tehcyx/hack-prow-pi/pi-tide:latest
-        docker tag "pi-tide:${TAG}" "docker.pkg.github.com/tehcyx/hack-prow-pi/pi-tide:${TAG}"
-        
-        docker tag "pi-status-reconciler:${TAG}" docker.pkg.github.com/tehcyx/hack-prow-pi/pi-status-reconciler:latest
-        docker tag "pi-status-reconciler:${TAG}" "docker.pkg.github.com/tehcyx/hack-prow-pi/pi-status-reconciler:${TAG}"
-        
-        docker tag "pi-hook:${TAG}" docker.pkg.github.com/tehcyx/hack-prow-pi/pi-hook:latest
-        docker tag "pi-hook:${TAG}" "docker.pkg.github.com/tehcyx/hack-prow-pi/pi-hook:${TAG}"
-        
-        docker tag "pi-plank:${TAG}" docker.pkg.github.com/tehcyx/hack-prow-pi/pi-plank:latest
-        docker tag "pi-plank:${TAG}" "docker.pkg.github.com/tehcyx/hack-prow-pi/pi-plank:${TAG}"
-        
-        docker tag "pi-sinker:${TAG}" docker.pkg.github.com/tehcyx/hack-prow-pi/pi-sinker:latest
-        docker tag "pi-sinker:${TAG}" "docker.pkg.github.com/tehcyx/hack-prow-pi/pi-sinker:${TAG}"
-        
-        docker tag "pi-deck:${TAG}" docker.pkg.github.com/tehcyx/hack-prow-pi/pi-deck:latest
-        docker tag "pi-deck:${TAG}" "docker.pkg.github.com/tehcyx/hack-prow-pi/pi-deck:${TAG}"
+        make tag
 
     - name: push image
       run: |
-        DATE=$(date +"%Y%m%d")
-        GIT_COMMIT=$(git rev-parse --short HEAD)
-        TAG="v${DATE}-${GIT_COMMIT}"
-        docker push docker.pkg.github.com/tehcyx/hack-prow-pi/pi-tide:latest
-        docker push "docker.pkg.github.com/tehcyx/hack-prow-pi/pi-tide:${TAG}"
-        
-        docker push docker.pkg.github.com/tehcyx/hack-prow-pi/pi-status-reconciler:latest
-        docker push "docker.pkg.github.com/tehcyx/hack-prow-pi/pi-status-reconciler:${TAG}"
-        
-        docker push docker.pkg.github.com/tehcyx/hack-prow-pi/pi-hook:latest
-        docker push "docker.pkg.github.com/tehcyx/hack-prow-pi/pi-hook:${TAG}"
-        
-        docker push docker.pkg.github.com/tehcyx/hack-prow-pi/pi-plank:latest
-        docker push "docker.pkg.github.com/tehcyx/hack-prow-pi/pi-plank:${TAG}"
-        
-        docker push docker.pkg.github.com/tehcyx/hack-prow-pi/pi-sinker:latest
-        docker push "docker.pkg.github.com/tehcyx/hack-prow-pi/pi-sinker:${TAG}"
-        
-        docker push docker.pkg.github.com/tehcyx/hack-prow-pi/pi-deck:latest
-        docker push "docker.pkg.github.com/tehcyx/hack-prow-pi/pi-deck:${TAG}"
-
+        make push
 
     - name: create starter.yaml artifact
       uses: actions/upload-artifact@v1
