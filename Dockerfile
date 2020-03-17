@@ -10,11 +10,11 @@ WORKDIR /workspace/test-infra/prow
 
 RUN echo "${CMP_NAME}"
 
-RUN GOOS=linux GOARCH=arm GOARM=5 go build -ldflags="-w -s" -o /workspace/release/{CMP_NAME} cmd/${CMP_NAME}/main.go
+RUN GOOS=linux GOARCH=arm GOARM=5 go build -ldflags="-w -s" -o /workspace/release/${CMP_NAME} cmd/${CMP_NAME}/main.go
 
 FROM scratch
 ARG CMP_NAME
 
-COPY --from=builder /workspace/release/{CMP_NAME} /workspace/${CMP_NAME}
+COPY --from=builder /workspace/release/${CMP_NAME} /workspace/${CMP_NAME}
 
 ENTRYPOINT [ "/workspace/${CMP_NAME}" ]
