@@ -49,7 +49,7 @@ jobs:
 
     - name: set tag env var
       run: |
-        echo "::set-env name=GH_TAG::${cat artifact/TAG}"
+        echo "::set-env name=GH_TAG::$(cat artifact/TAG)"
 
     - name: create a prerelease
       id: create_release
