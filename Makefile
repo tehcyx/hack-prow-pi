@@ -40,59 +40,45 @@ build-horologium:
 	docker build --build-arg CMP_NAME=horologium -t pi-horologium:${TAG} .
 
 tag-tide:
-	docker tag "pi-tide:${TAG}" docker.pkg.github.com/tehcyx/hack-prow-pi/pi-tide:latest
 	docker tag "pi-tide:${TAG}" "docker.pkg.github.com/tehcyx/hack-prow-pi/pi-tide:${TAG}"
 
 tag-status-reconciler:  
-	docker tag "pi-status-reconciler:${TAG}" docker.pkg.github.com/tehcyx/hack-prow-pi/pi-status-reconciler:latest
 	docker tag "pi-status-reconciler:${TAG}" "docker.pkg.github.com/tehcyx/hack-prow-pi/pi-status-reconciler:${TAG}"
 
 tag-hook:
-	docker tag "pi-hook:${TAG}" docker.pkg.github.com/tehcyx/hack-prow-pi/pi-hook:latest
 	docker tag "pi-hook:${TAG}" "docker.pkg.github.com/tehcyx/hack-prow-pi/pi-hook:${TAG}"
 
 tag-plank:
-	docker tag "pi-plank:${TAG}" docker.pkg.github.com/tehcyx/hack-prow-pi/pi-plank:latest
 	docker tag "pi-plank:${TAG}" "docker.pkg.github.com/tehcyx/hack-prow-pi/pi-plank:${TAG}"
 
 tag-sinker:
-	docker tag "pi-sinker:${TAG}" docker.pkg.github.com/tehcyx/hack-prow-pi/pi-sinker:latest
 	docker tag "pi-sinker:${TAG}" "docker.pkg.github.com/tehcyx/hack-prow-pi/pi-sinker:${TAG}"
 
 tag-deck:
-	docker tag "pi-deck:${TAG}" docker.pkg.github.com/tehcyx/hack-prow-pi/pi-deck:latest
 	docker tag "pi-deck:${TAG}" "docker.pkg.github.com/tehcyx/hack-prow-pi/pi-deck:${TAG}"
 
 tag-horologium:
-	docker tag "pi-horologium:${TAG}" docker.pkg.github.com/tehcyx/hack-prow-pi/pi-horologium:latest
 	docker tag "pi-horologium:${TAG}" "docker.pkg.github.com/tehcyx/hack-prow-pi/pi-horologium:${TAG}"
 
 push-tide:
-	docker push docker.pkg.github.com/tehcyx/hack-prow-pi/pi-tide:latest
 	docker push "docker.pkg.github.com/tehcyx/hack-prow-pi/pi-tide:${TAG}"
 
 push-status-reconciler:
-	docker push docker.pkg.github.com/tehcyx/hack-prow-pi/pi-status-reconciler:latest
 	docker push "docker.pkg.github.com/tehcyx/hack-prow-pi/pi-status-reconciler:${TAG}"
 
 push-hook:        
-	docker push docker.pkg.github.com/tehcyx/hack-prow-pi/pi-hook:latest
 	docker push "docker.pkg.github.com/tehcyx/hack-prow-pi/pi-hook:${TAG}"
 
 push-plank:
-	docker push docker.pkg.github.com/tehcyx/hack-prow-pi/pi-plank:latest
 	docker push "docker.pkg.github.com/tehcyx/hack-prow-pi/pi-plank:${TAG}"
 
 push-sinker:
-	docker push docker.pkg.github.com/tehcyx/hack-prow-pi/pi-sinker:latest
 	docker push "docker.pkg.github.com/tehcyx/hack-prow-pi/pi-sinker:${TAG}"
 
 push-deck:
-	docker push docker.pkg.github.com/tehcyx/hack-prow-pi/pi-deck:latest
 	docker push "docker.pkg.github.com/tehcyx/hack-prow-pi/pi-deck:${TAG}"
 
 push-horologium:
-	docker push docker.pkg.github.com/tehcyx/hack-prow-pi/pi-horologium:latest
 	docker push "docker.pkg.github.com/tehcyx/hack-prow-pi/pi-horologium:${TAG}"
 
 starter:

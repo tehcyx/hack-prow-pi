@@ -5,7 +5,7 @@ name: Publish ARM images of prow@master
 # Controls when the action will run. Triggers the workflow on push or pull request 
 # events but only for the master branch
 on:
-  push:
+  pull_request:
     branches: [ master ]
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
@@ -17,6 +17,10 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
+    # get PR number
+    - name: 
+        run:   echo ::set-env name=PULL_NUMBER::$(echo "$GITHUB_REF" | awk -F / '{print $3}')
+        shell: bash
     # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
     - uses: actions/checkout@v2
     - name: Login to GitHub Docker Registry
@@ -28,21 +32,3 @@ jobs:
     - name: run make, building all images
       run:  |
         make
-
-    - name: tag images
-      run: |
-        make tag
-
-    - name: push image
-      run: |
-        make push
-
-    - name: create starter.yaml artifact
-      run: |
-        make starter
-    
-    - name: upload artifact
-      uses: actions/upload-artifact@v1
-      with:
-        name: starter.yaml
-        path: artifact/starter.yaml
