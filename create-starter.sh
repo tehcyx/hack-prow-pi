@@ -7,6 +7,7 @@ fi
 TAG="${1}"
 
 mkdir artifact
+echo "${TAG}" > artifact/TAG
 
 curl https://raw.githubusercontent.com/kubernetes/test-infra/master/prow/cluster/starter.yaml -o artifact/starter.yaml
 
