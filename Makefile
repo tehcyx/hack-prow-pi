@@ -19,13 +19,13 @@ deck: build-deck tag-deck
 horologium: build-horologium tag-horologium
 
 build-tide:
-	docker build --build-arg CMP_NAME=tide -t pi-tide:${TAG} .
+	docker build --build-arg CMP_NAME=tide -f Dockerfile.WithGitBase -t pi-tide:${TAG} .
 
 build-status-reconciler:
 	docker build --build-arg CMP_NAME=status-reconciler -t pi-status-reconciler:${TAG} .
 
 build-hook:
-	docker build --build-arg CMP_NAME=hook -t pi-hook:${TAG} .
+	docker build --build-arg CMP_NAME=hook -f Dockerfile.WithGitBase -t pi-hook:${TAG} .
 
 build-plank:
 	docker build --build-arg CMP_NAME=plank -t pi-plank:${TAG} .
@@ -34,7 +34,7 @@ build-sinker:
 	docker build --build-arg CMP_NAME=sinker -t pi-sinker:${TAG} .
 
 build-deck:
-	docker build --build-arg CMP_NAME=deck -t pi-deck:${TAG} .
+	docker build --build-arg CMP_NAME=deck -f Dockerfile.WithGitBase -t pi-deck:${TAG} .
 
 build-horologium:
 	docker build --build-arg CMP_NAME=horologium -t pi-horologium:${TAG} .

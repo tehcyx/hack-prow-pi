@@ -10,7 +10,7 @@ WORKDIR /workspace/test-infra/prow
 
 RUN GOOS=linux GOARCH=arm GOARM=5 go build -ldflags="-w -s" -o /workspace/release/app ./cmd/${CMP_NAME}/
 
-FROM scratch
+FROM alpine/git:latest
 
 COPY --from=builder /workspace/release/app /app
 
