@@ -9,9 +9,14 @@ COPY --from=checkout /workspace/test-infra /workspace/test-infra
 WORKDIR /workspace/test-infra/prow
 
 RUN GOOS=linux GOARCH=arm GOARM=5 go build -ldflags="-w -s" -o /workspace/release/app ./cmd/${CMP_NAME}/
+RUN if [ "$CMP_NAME" = "deck" ] ; then cp -r ./cmd/${CMP_NAME}/template /workspace/release/template ; fi
+RUN if [ "$CMP_NAME" = "deck" ] ; then cp -r ./cmd/${CMP_NAME}/static /workspace/release/static ; fi
 
 FROM alpine/git:latest
+ARG CMP_NAME
 
-COPY --from=builder /workspace/release/app /app
+COPY --from=builder /workspace/release/ /prow/
+RUN if [ "$CMP_NAME" = "deck" ] ; then mv /prow/template /template ; fi
+RUN if [ "$CMP_NAME" = "deck" ] ; then mv /prow/static /static ; fi
 
-ENTRYPOINT [ "/app" ]
+ENTRYPOINT [ "/prow/app" ]
