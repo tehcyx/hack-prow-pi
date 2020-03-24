@@ -34,7 +34,7 @@ build-sinker:
 	docker build --build-arg CMP_NAME=sinker -t pi-sinker:${TAG} .
 
 build-deck:
-	docker build --build-arg CMP_NAME=deck -f Dockerfile.WithGitBase -t pi-deck:${TAG} .
+	docker build --build-arg CMP_NAME=deck -f Dockerfile.WithStaticContent -t pi-deck:${TAG} .
 
 build-horologium:
 	docker build --build-arg CMP_NAME=horologium -t pi-horologium:${TAG} .
