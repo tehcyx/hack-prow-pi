@@ -13,14 +13,14 @@ RUN apk --no-cache add curl
 RUN GOOS=linux GOARCH=arm GOARM=5 go build -ldflags="-w -s" -o /workspace/release/app ./cmd/${CMP_NAME}/
 RUN if [ "$CMP_NAME" = "deck" ] ; then cp -r ./cmd/${CMP_NAME}/template /workspace/release/template ; fi
 
-RUN if [ "$CMP_NAME" = "deck" ] ; then curl https://prow.k8s.io/static/command_help_bundle.min.js -o ./cmd/${CMP_NAME}command_help_bundle.min.js ; fi
-RUN if [ "$CMP_NAME" = "deck" ] ; then curl https://prow.k8s.io/static/plugin_help_bundle.min.js -o ./cmd/${CMP_NAME}plugin_help_bundle.min.js ; fi
-RUN if [ "$CMP_NAME" = "deck" ] ; then curl https://prow.k8s.io/static/pr_bundle.min.js -o ./cmd/${CMP_NAME}pr_bundle.min.js ; fi
-RUN if [ "$CMP_NAME" = "deck" ] ; then curl https://prow.k8s.io/static/prow_bundle.min.js -o ./cmd/${CMP_NAME}prow_bundle.min.js ; fi
-RUN if [ "$CMP_NAME" = "deck" ] ; then curl https://prow.k8s.io/static/spyglass_bundle.min.js -o ./cmd/${CMP_NAME}spyglass_bundle.min.js ; fi
-RUN if [ "$CMP_NAME" = "deck" ] ; then curl https://prow.k8s.io/static/spyglass_lens_bundle.min.js -o ./cmd/${CMP_NAME}spyglass_lens_bundle.min.js ; fi
-RUN if [ "$CMP_NAME" = "deck" ] ; then curl https://prow.k8s.io/static/tide_bundle.min.js -o ./cmd/${CMP_NAME}tide_bundle.min.js ; fi
-RUN if [ "$CMP_NAME" = "deck" ] ; then curl https://prow.k8s.io/static/tide_history_bundle.min.js -o ./cmd/${CMP_NAME}tide_history_bundle.min.js ; fi
+RUN if [ "$CMP_NAME" = "deck" ] ; then curl https://prow.k8s.io/static/command_help_bundle.min.js -o ./cmd/${CMP_NAME}/static/command_help_bundle.min.js ; fi
+RUN if [ "$CMP_NAME" = "deck" ] ; then curl https://prow.k8s.io/static/plugin_help_bundle.min.js -o ./cmd/${CMP_NAME}/static/plugin_help_bundle.min.js ; fi
+RUN if [ "$CMP_NAME" = "deck" ] ; then curl https://prow.k8s.io/static/pr_bundle.min.js -o ./cmd/${CMP_NAME}/static/pr_bundle.min.js ; fi
+RUN if [ "$CMP_NAME" = "deck" ] ; then curl https://prow.k8s.io/static/prow_bundle.min.js -o ./cmd/${CMP_NAME}/static/prow_bundle.min.js ; fi
+RUN if [ "$CMP_NAME" = "deck" ] ; then curl https://prow.k8s.io/static/spyglass_bundle.min.js -o ./cmd/${CMP_NAME}/static/spyglass_bundle.min.js ; fi
+RUN if [ "$CMP_NAME" = "deck" ] ; then curl https://prow.k8s.io/static/spyglass_lens_bundle.min.js -o ./cmd/${CMP_NAME}/static/spyglass_lens_bundle.min.js ; fi
+RUN if [ "$CMP_NAME" = "deck" ] ; then curl https://prow.k8s.io/static/tide_bundle.min.js -o ./cmd/${CMP_NAME}/static/tide_bundle.min.js ; fi
+RUN if [ "$CMP_NAME" = "deck" ] ; then curl https://prow.k8s.io/static/tide_history_bundle.min.js -o ./cmd/${CMP_NAME}/static/tide_history_bundle.min.js ; fi
 
 RUN if [ "$CMP_NAME" = "deck" ] ; then cp -r ./cmd/${CMP_NAME}/static /workspace/release/static ; fi
 
